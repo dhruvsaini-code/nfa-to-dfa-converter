@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>NFA → DFA Converter</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<div class="app-shell">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                λ
+            </div>
+
+            <div>
+
+                <div class="brand-name">
+                    NFA → DFA
+                </div>
+
+                <div class="brand-sub">
+                    AUTOMATA CONVERTER
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="sidebar-section">
+
+            <div class="sidebar-label">
+                WORKSPACE
+            </div>
+
+
+            <a href="#configSection" class="nav-item active">
+
+                <span class="nav-icon">
+                    ◇
+                </span>
+
+                NFA → DFA
+
+            </a>
+
+
+            <a href="#transitionSection" class="nav-item">
+
+                <span class="nav-icon">
+                    ◎
+                </span>
+
+                Finite Automata
+
+            </a>
+
+
+            <a href="#resultSection" class="nav-item">
+
+                <span class="nav-icon">
+                    ⌘
+                </span>
+
+                Algorithms
+
+            </a>
+
+        </div>
+
+
+        <div class="sidebar-section">
+
+            <div class="sidebar-label">
+                PROJECT
+            </div>
+
+
+            <a href="#jflapSection" class="nav-item">
+
+                <span class="nav-icon">
+                    ▣
+                </span>
+
+                JFLAP Verification
+
+            </a>
+
+
+            <a href="#testerSection" class="nav-item">
+
+                <span class="nav-icon">
+                    ?
+                </span>
+
+                String Simulator
+
+            </a>
+
+        </div>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="status-dot"></div>
+
+            <div>
+
+                <strong>
+                    System Ready
+                </strong>
+
+                <small>
+                    Converter engine online
+                </small>
+
+            </div>
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- MAIN -->
+
+    <div class="main-area">
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+
+            <div>
+
+                <div class="breadcrumb">
+                    Workspace / Finite Automata
+                </div>
+
+                <h1>
+                    NFA → DFA Converter
+                </h1>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+
+                <div class="engine-status">
+
+                    <span></span>
+
+                    Python Engine
+
+                </div>
+
+
+                <div class="avatar">
+                    λ
+                </div>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- CONTENT -->
+
+        <main class="content">
+
+
+            <!-- HERO -->
+
+            <section class="hero-card">
+
+
+                <div class="hero-content">
+
+
+                    <div class="eyebrow">
+                        SUBSET CONSTRUCTION
+                    </div>
+
+
+                    <h2>
+
+                        Transform your
+
+                        <span>NFA</span>
+
+                        into a
+
+                        <span>DFA.</span>
+
+                    </h2>
+
+
+                    <p>
+
+                        Define your finite automaton,
+                        run the conversion algorithm,
+                        and visualize every step of
+                        the resulting deterministic automaton.
+
+                    </p>
+
+
+                    <div class="hero-pills">
+
+                        <span>
+                            ✓ ε-closure
+                        </span>
+
+                        <span>
+                            ✓ Subset Construction
+                        </span>
+
+                        <span>
+                            ✓ State Visualization
+                        </span>
+
+                        <span>
+                            ✓ JFLAP (.jff) Export
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="hero-symbol">
+
+                    <div class="orbit orbit-1"></div>
+
+                    <div class="orbit orbit-2"></div>
+
+                    <div class="lambda">
+                        λ
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- CONFIGURATION -->
+
+            <section id="configSection" class="panel">
+
+
+                <div class="panel-header">
+
+
+                    <div class="panel-title">
+
+
+                        <div class="section-number">
+                            01
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                NFA Configuration
+                            </h3>
+
+                            <p>
+                                Define the structure of your
+                                non-deterministic automaton.
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="required">
+                        REQUIRED
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="config-grid">
+
+
+                    <div class="input-field">
+
+                        <label>
+                            STATES
+                            <span>•</span>
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <span class="input-prefix">
+                                Q
+                            </span>
+
+
+                            <input
+                                id="states"
+                                placeholder="q0, q1, q2"
+                            >
+
+                        </div>
+
+
+                        <small>
+                            Comma-separated state names
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="input-field">
+
+                        <label>
+                            ALPHABET
+                            <span>•</span>
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <span class="input-prefix">
+                                Σ
+                            </span>
+
+
+                            <input
+                                id="alphabet"
+                                placeholder="0, 1"
+                            >
+
+                        </div>
+
+
+                        <small>
+                            Input symbols separated by commas
+                        </small>
+
+                    </div>
+
+
+
+                    <div class="input-field">
+
+                        <label>
+                            START STATE
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <span class="input-prefix start">
+                                →
+                            </span>
+
+
+                            <input
+                                id="startState"
+                                placeholder="q0"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="input-field">
+
+                        <label>
+                            FINAL STATES
+                        </label>
+
+
+                        <div class="input-wrapper">
+
+                            <span class="input-prefix final">
+                                ★
+                            </span>
+
+
+                            <input
+                                id="finalStates"
+                                placeholder="q2"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- TRANSITIONS -->
+
+            <section id="transitionSection" class="panel">
+
+
+                <div class="panel-header">
+
+
+                    <div class="panel-title">
+
+
+                        <div class="section-number">
+                            02
+                        </div>
+
+
+                        <div>
+
+                            <h3>
+                                Transition Function
+                            </h3>
+
+                            <p>
+                                Define how each state responds
+                                to input symbols.
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="header-actions">
+
+                        <button
+                            class="epsilon-button"
+                            type="button"
+                            onclick="addEpsilonTransition()"
+                            title="Add an ε-transition row"
+                        >
+                            + Add ε-Transition
+                        </button>
+
+                        <button
+                            class="add-button"
+                            type="button"
+                            onclick="addTransition()"
+                        >
+
+                            <span>+</span>
+
+                            Add Transition
+
+                        </button>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="transition-head">
+
+                    <span>
+                        FROM STATE
+                    </span>
+
+                    <span>
+                        INPUT
+                    </span>
+
+                    <span>
+                        TO STATE
+                    </span>
+
+                    <span></span>
+
+                </div>
+
+
+
+                <div id="transitionContainer">
+
+
+                    <div class="transition-row">
+
+
+                        <div class="transition-input">
+
+                            <span>
+                                q
+                            </span>
+
+                            <input
+                                class="from-state"
+                                placeholder="q0"
+                            >
+
+                        </div>
+
+
+                        <div class="transition-symbol">
+
+                            <input
+                                class="symbol"
+                                placeholder="0 / 1 / ε"
+                            >
+
+                        </div>
+
+
+                        <div class="transition-input">
+
+                            <span>
+                                q
+                            </span>
+
+                            <input
+                                class="to-state"
+                                placeholder="q1"
+                            >
+
+                        </div>
+
+
+                        <button
+                            class="delete-button"
+                            onclick="removeTransition(this)"
+                        >
+
+                            ×
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="transition-tip">
+
+                    <span>⌁</span>
+
+                    Tip: Use
+                    <strong>ε</strong>
+                    (or type <strong>epsilon</strong>) for epsilon transitions.
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- ACTION -->
+
+            <section class="action-bar">
+
+
+                <div class="action-info">
+
+
+                    <div class="action-icon">
+                        ◇
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Ready to convert?
+                        </strong>
+
+                        <p>
+                            The engine will apply
+                            subset construction automatically.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="action-buttons">
+
+
+                    <button
+                        class="sample-button"
+                        onclick="loadSample('standard')"
+                    >
+
+                        Load Example (NFA)
+
+                    </button>
+
+                    <button
+                        class="sample-button"
+                        onclick="loadSample('epsilon')"
+                    >
+
+                        Load ε-NFA Example
+
+                    </button>
+
+
+                    <button
+                        class="convert-button"
+                        onclick="convertNFA()"
+                    >
+
+                        <span>
+                            Convert NFA → DFA
+                        </span>
+
+                        <b>
+                            →
+                        </b>
+
+                    </button>
+
+
+                </div>
+
+
+            </section>
+
+
+
+            <div
+                id="errorBox"
+                class="error hidden"
+            >
+            </div>
+
+
+
+            <!-- RESULTS -->
+
+            <section
+                id="resultSection"
+                class="hidden"
+            >
+
+
+                <div class="result-header">
+
+
+                    <div>
+
+                        <div class="result-eyebrow">
+                            CONVERSION COMPLETE
+                        </div>
+
+                        <h2>
+                            DFA Generated Successfully
+                        </h2>
+
+                    </div>
+
+
+                    <div class="result-actions">
+
+                        <button
+                            class="export-btn"
+                            onclick="exportDFAJson()"
+                            title="Download DFA as JSON"
+                        >
+                            ↓ Export JSON
+                        </button>
+
+                        <button
+                            class="export-btn jflap"
+                            onclick="exportJFLAP('dfa')"
+                            title="Download DFA in JFLAP (.jff) format for verification"
+                        >
+                            ↓ Export DFA (.jff)
+                        </button>
+
+                        <button
+                            class="export-btn"
+                            onclick="exportJFLAP('nfa')"
+                            title="Download input NFA in JFLAP (.jff) format"
+                        >
+                            ↓ Export NFA (.jff)
+                        </button>
+
+                        <div class="success-badge">
+
+                            <span>✓</span>
+
+                            READY
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- STATS -->
+
+                <div class="stats-grid">
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon blue">
+                            →
+                        </div>
+
+                        <div>
+
+                            <small>
+                                START STATE
+                            </small>
+
+                            <strong id="dfaStart">
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon purple">
+                            ◇
+                        </div>
+
+                        <div>
+
+                            <small>
+                                DFA STATES
+                            </small>
+
+                            <strong id="dfaStateCount">
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon green">
+                            ★
+                        </div>
+
+                        <div>
+
+                            <small>
+                                FINAL STATES
+                            </small>
+
+                            <strong id="dfaFinal">
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- DIAGRAMS -->
+
+                <div class="diagram-grid">
+
+
+                    <section class="diagram-card">
+
+
+                        <div class="diagram-header">
+
+
+                            <div>
+
+                                <div class="diagram-label">
+                                    INPUT
+                                </div>
+
+                                <h3>
+                                    NFA
+                                </h3>
+
+                            </div>
+
+
+                            <span class="diagram-badge nfa">
+                                NON-DETERMINISTIC
+                            </span>
+
+
+                        </div>
+
+
+                        <div class="diagram" id="nfaDiagramContainer">
+
+                            <img
+                                id="nfaGraph"
+                                alt="NFA Diagram"
+                                class="hidden"
+                            >
+                            <div id="nfaSvgCanvas" class="svg-canvas"></div>
+
+                        </div>
+
+
+                    </section>
+
+
+
+                    <section class="diagram-card featured">
+
+
+                        <div class="diagram-header">
+
+
+                            <div>
+
+                                <div class="diagram-label">
+                                    OUTPUT
+                                </div>
+
+                                <h3>
+                                    DFA
+                                </h3>
+
+                            </div>
+
+
+                            <span class="diagram-badge dfa">
+                                DETERMINISTIC
+                            </span>
+
+
+                        </div>
+
+
+                        <div class="diagram" id="dfaDiagramContainer">
+
+                            <img
+                                id="dfaGraph"
+                                alt="DFA Diagram"
+                                class="hidden"
+                            >
+                            <div id="dfaSvgCanvas" class="svg-canvas"></div>
+
+                        </div>
+
+
+                    </section>
+
+
+                </div>
+
+
+
+                <!-- EPSILON CLOSURE PANEL -->
+
+                <section class="panel">
+
+                    <div class="panel-header">
+
+                        <div class="panel-title">
+
+                            <div class="section-number">
+                                ε
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    ε-Closure Table
+                                </h3>
+
+                                <p>
+                                    States reachable from each NFA state using only ε-transitions.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div id="epsilonClosureContainer" class="closure-grid">
+                    </div>
+
+                </section>
+
+
+
+                <!-- TABLE -->
+
+                <section class="panel result-panel">
+
+
+                    <div class="panel-header">
+
+
+                        <div class="panel-title">
+
+
+                            <div class="section-number">
+                                03
+                            </div>
+
+
+                            <div>
+
+                                <h3>
+                                    DFA Transition Table
+                                </h3>
+
+                                <p>
+                                    The complete deterministic
+                                    transition function.
+                                </p>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="table-container">
+
+                        <table id="dfaTable">
+
+                            <thead
+                                id="dfaTableHead"
+                            >
+                            </thead>
+
+                            <tbody
+                                id="dfaTableBody"
+                            >
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+
+                    <div class="table-legend">
+
+                        <span>
+                            <b>→</b>
+                            Start state
+                        </span>
+
+                        <span>
+                            <b>★</b>
+                            Final state
+                        </span>
+
+                        <span>
+                            <b>∅</b>
+                            Dead / Trap state
+                        </span>
+
+                    </div>
+
+
+                </section>
+
+
+
+                <!-- STEPS -->
+
+                <section class="panel">
+
+
+                    <div class="panel-header">
+
+
+                        <div class="panel-title">
+
+
+                            <div class="section-number">
+                                04
+                            </div>
+
+
+                            <div>
+
+                                <h3>
+                                    Subset Construction
+                                </h3>
+
+                                <p>
+                                    See exactly how each DFA
+                                    state was generated.
+                                </p>
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div
+                        id="steps"
+                        class="steps"
+                    >
+                    </div>
+
+
+                </section>
+
+
+
+                <!-- JFLAP VERIFICATION PANEL -->
+
+                <section id="jflapSection" class="panel">
+
+                    <div class="panel-header">
+
+                        <div class="panel-title">
+
+                            <div class="section-number">
+                                05
+                            </div>
+
+                            <div>
+
+                                <h3>
+                                    JFLAP Reference & Verification
+                                </h3>
+
+                                <p>
+                                    Verify our Python Subset Construction output directly in JFLAP.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="header-actions">
+
+                            <button
+                                class="add-button"
+                                onclick="exportJFLAP('nfa')"
+                            >
+                                ↓ Download NFA (.jff)
+                            </button>
+
+                            <button
+                                class="add-button"
+                                onclick="exportJFLAP('dfa')"
+                            >
+                                ↓ Download DFA (.jff)
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="jflap-guide">
+                        <div class="jflap-step">
+                            <strong>1. Export NFA to JFLAP</strong>
+                            <p>Click <em>Download NFA (.jff)</em> above and open the file in JFLAP (<code>File → Open</code>).</p>
+                        </div>
+                        <div class="jflap-step">
+                            <strong>2. Run JFLAP Conversion</strong>
+                            <p>In JFLAP, choose <code>Convert → Convert to DFA</code> and click <em>Complete</em> to see JFLAP's subset construction.</p>
+                        </div>
+                        <div class="jflap-step">
+                            <strong>3. Compare & Verify</strong>
+                            <p>Compare JFLAP's generated states and transitions with our DFA Transition Table and State Diagram above.</p>
+                        </div>
+                    </div>
+
+                </section>
+
+
+
+                <!-- STRING TEST -->
+
+                <section id="testerSection" class="tester-panel">
+
+
+                    <div class="tester-content">
+
+
+                        <div class="tester-icon">
+                            ⌁
+                        </div>
+
+
+                        <div>
+
+                            <div class="diagram-label">
+                                DFA SIMULATOR
+                            </div>
+
+                            <h3>
+                                Test a String
+                            </h3>
+
+                            <p>
+                                Enter an input string and see
+                                whether the generated DFA accepts it.
+                            </p>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="tester-input">
+
+
+                        <input
+                            id="testString"
+                            placeholder="e.g. 00101"
+                        >
+
+
+                        <button
+                            onclick="testString()"
+                        >
+
+                            Run Test
+
+                            <span>
+                                →
+                            </span>
+
+                        </button>
+
+
+                    </div>
+
+
+
+                    <div
+                        id="testResult"
+                        class="test-result hidden"
+                    >
+                    </div>
+
+
+                </section>
+
+
+            </section>
+
+
+        </main>
+
+
+
+        <footer>
+
+            <span>
+                NFA → DFA Converter
+            </span>
+
+            <span>
+                Automata Theory Project
+            </span>
+
+            <span>
+                Python + Flask
+            </span>
+
+        </footer>
+
+
+    </div>
+
+
+</div>
+
+
+
+<script
+    src="{{ url_for('static', filename='script.js') }}"
+>
+</script>
+
+
+</body>
+
+</html>
+
